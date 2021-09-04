@@ -1,17 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import RegisterComponent from "../../components/signUp";
 import envs from "../../config/env";
 import axios from "../../helpers/axiosInterceptor";
-import register from "../../context/actions/auth/register";
+import  register, {clearAuthState} from "../../context/actions/auth/register";
 import { GlobalContext } from "../../context/Provider";
+import { LOGIN } from "../../constants/RouteNames";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 const Register = () => {
+
+  const { navigate }= useNavigation()
 
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
-  const { authDispatch, authState: { error, loading, data, }, } = useContext(GlobalContext);
+  const { authDispatch, authState: { error, loading, data } } = useContext(GlobalContext);
   // console.log(form);
 
   // useEffect(() => {
@@ -20,9 +24,30 @@ const Register = () => {
   //   });
   // }, []);
 
+  useEffect(() => {
+    if (data){
+      navigate(LOGIN)
+    }
+  }, [data]);
+
+  useFocusEffect(
+
+    useCallback(()=>{
+
+      if (data|| error){
+        clearAuthState()(authDispatch);
+
+      }
+
+    },[data, error])
+
+  )
 
   const onChange = ({ name, value }) => {
     setForm({ ...form, [name]: value });
+
+
+
 
     if (value !== "") {
       if (name === "password") {

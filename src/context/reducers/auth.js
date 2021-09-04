@@ -1,4 +1,4 @@
-import { REGISTER_FAIL, REGISTER_LOADING, REGISTER_SUCCESS } from "../../constants/actionTypes";
+import { CLEAR_AUTH_STATE, REGISTER_FAIL, REGISTER_LOADING, REGISTER_SUCCESS } from "../../constants/actionTypes";
 
 const auth = (state, { type, payload }) => {
 
@@ -22,6 +22,14 @@ const auth = (state, { type, payload }) => {
         ...state,
         loading: false,
         error: payload,
+      };
+    case CLEAR_AUTH_STATE:
+      console.log("state ", state);
+      return {
+        ...state,
+        loading: false,
+        data: null,
+        error:null
       };
 
     default:

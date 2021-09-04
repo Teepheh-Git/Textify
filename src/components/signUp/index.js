@@ -23,13 +23,11 @@ const RegisterComponent = ({ onSubmit, onChange, form, error, loading, errors })
 
         <View style={styles.form}>
 
-          {error.error && <Text>{error.error}</Text>}
+          {error?.error && <Text>{error.error}</Text>}
 
 
-
-          {/*stopped here @ episode 14,,, min: 16.42*/}
-
-
+{/*start from  episode 15*/}
+¬
           <Input
             label="Username"
             iconPosition="right"
@@ -37,7 +35,7 @@ const RegisterComponent = ({ onSubmit, onChange, form, error, loading, errors })
             onChangeText={(value) => {
               onChange({ name: "userName", value: value });
             }}
-            error={errors.userName}
+            error={errors.userName || error?.username?.[0]}
 
             // error={'This field is required'}
           />
@@ -49,14 +47,14 @@ const RegisterComponent = ({ onSubmit, onChange, form, error, loading, errors })
             onChangeText={(value) => {
               onChange({ name: "firstName", value: value });
             }}
-            error={errors.firstName}
+            error={errors.firstName || error?.firstName?.[0]}
           />
 
           <Input
             label="Last Name"
             iconPosition="right"
             placeholder={"Enter Last Name"}
-            error={errors.lastName}
+            error={errors.lastName || error?.lastName?.[0]}
             onChangeText={(value) => {
               onChange({ name: "lastName", value: value });
             }}
@@ -67,7 +65,7 @@ const RegisterComponent = ({ onSubmit, onChange, form, error, loading, errors })
             label="Email"
             iconPosition="right"
             placeholder={"Enter Email"}
-            error={errors.Email}
+            error={errors.Email || error?.Email?.[0]}
             onChangeText={(value) => {
               onChange({ name: "Email", value: value });
             }}
@@ -80,7 +78,7 @@ const RegisterComponent = ({ onSubmit, onChange, form, error, loading, errors })
             iconPosition="right"
             secureTextEntry={true}
             placeholder={"Enter Password"}
-            error={errors.password}
+            error={errors.password || error?.password?.[0]}
             onChangeText={(value) => {
               onChange({ name: "password", value: value });
             }}
